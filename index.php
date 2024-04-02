@@ -3,17 +3,17 @@
     session_start();//เริ่มทำงาน session
 
     // เมื่อไม่มีการ login เข้ามา
-    // if (!isset($_SESSION['username'])) {
-    //     $_SESSION['msg'] = "You must login first";//เก็บข้อความไว้เพื่อแสดง
-    //     header('location: login.php');//ตีกลับไปที่หน้า login
-    // }
+    if (!isset($_SESSION['username'])) {
+        $_SESSION['msg'] = "You must login first";//เก็บข้อความไว้เพื่อแสดง
+        header('location: login.php');//ตีกลับไปที่หน้า login
+    }
 
-    // //ถ้ามีการกดปุ่ม logout
-    // if (isset($_GET['logout'])) {
-    //     session_destroy();//ล้าง session ทิ้ง
-    //     unset($_SESSION['username']);
-    //     header('location: login.php');
-    // }
+    //ถ้ามีการกดปุ่ม logout
+    if (isset($_GET['logout'])) {
+        session_destroy();//ล้าง session ทิ้ง
+        unset($_SESSION['username']);
+        header('location: login.php');
+    }
 
 ?>
 

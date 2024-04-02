@@ -17,23 +17,18 @@
             array_push($errors, "Password is required");
         }
 
-        //เมื่อไม่มี error
-        if (count($errors) == 0) {
-            $password = md5($password);//ถอดรหัส
+        $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password' ";
+        $result = mysqli_query($conn, $query);
 
-            $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password' ";
-            $result = mysqli_query($conn, $query);
-
-            //ถ้ามีข้อมูลอยู่ในฐานข้อมูล
-            if (mysqli_num_rows($result) == 1) {
-                $_SESSION['username'] = $username;
-                $_SESSION['success'] = "Your are now logged in";
-                header('location: index.php');
-            }else{//เมื่อมีข้อผิดพลาด
-                array_push($errors, "Wrong username/password combination");
-                $_SESSION['error'] = "Wrong username or password try again";
-                header('location: login.php');
-            }
+        //ถ้ามีข้อมูลอยู่ในฐานข้อมูล
+        if (mysqli_num_rows($result) == 1) {
+            $_SESSION['username'] = $username;
+            $_SESSION['success'] = "Your are now logged in";
+            header('location: index.php');
+        }else{//เมื่อมีข้อผิดพลาด
+            array_push($errors, "Wrong username or password combination");
+            $_SESSION['error'] = "Wrong username or password try again";
+            header('location: login.php');
         }
     }
 ?>
